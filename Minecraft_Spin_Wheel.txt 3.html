@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Minecraft 1.21.11 Spin Wheel</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #1a1a1a;
+    color: #fff;
+  }
+
+  #wheelContainer {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 50px auto;
+  }
+
+  #wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 10px solid #fff;
+    background: conic-gradient(
+      #4CAF50 0% 12.5%,
+      #2196F3 12.5% 25%,
+      #FF9800 25% 37.5%,
+      #E91E63 37.5% 50%,
+      #9C27B0 50% 62.5%,
+      #03A9F4 62.5% 75%,
+      #FFC107 75% 87.5%,
+      #FF5722 87.5% 100%
+    );
+    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  #spinButton {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  #result {
+    font-size: 1.8em;
+    margin-top: 20px;
+  }
+
+  /* Optional: pointer arrow */
+  #pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #fff;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+<h1>Minecraft 1.21.11 Spin Wheel</h1>
+<div id="wheelContainer">
+  <div id="pointer"></div>
+  <div id="wheel"></div>
+</div>
+<button id="spinButton">🎡 Spin!</button>
+<div id="result">Result will appear here</div>
+
+<script>
+  // Example list — replace with full 1.21.11 IDs
+  const minecraftIDs = [
+    "acacia_boat",
+    "acacia_chest_boat",
+    "acacia_button",
+    "acaia_door",
+    "acacia_fence",
+    "acacia_fence_gate",
+    "acacia_hanging_sign",
+    "acacia_leaves",
+    "acacia_log",
+    "acacia_planks",
+    "acacia_pressure_plate",
+    "acacia_sign",
+    "acacia_slab",
+    "acacia_stairs",
+    "acacia_trapdoor",
+    "acacia_wood"
+    // ... add the full 1.21.11 list here
+  ];
+
+  const wheel = document.getElementById("wheel");
+  const spinButton = document.getElementById("spinButton");
+  const result = document.getElementById("result");
+
+  let currentRotation = 0;
+
+  spinButton.onclick = function() {
+    const total = minecraftIDs.length;
+    const randIndex = Math.floor(Math.random() * total);
+    const spins = 5; // full spins for visual effect
+    const randomAngle = Math.random() * 360; // extra partial rotation
+
+    // Spin from current rotation
+    const newRotation = currentRotation + spins * 360 + randomAngle;
+    wheel.style.transform = `rotate(${newRotation}deg)`;
+
+    currentRotation = newRotation % 360;
+
+    // Show result after spin
+    setTimeout(() => {
+      result.innerText = minecraftIDs[randIndex];
+    }, 5000);
+  };
+</script>
+</body>
+</html>
